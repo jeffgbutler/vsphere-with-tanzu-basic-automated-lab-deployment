@@ -2,14 +2,14 @@
 # Website: www.virtuallyghetto.com
 
 # vCenter Server used to deploy vSphere with Tanzu  Basic Lab
-$VIServer = "mgmt-vcsa-01.cpbu.corp"
+$VIServer = "vcsa.tanzuathome.net"
 $VIUsername = "administrator@vsphere.local"
-$VIPassword = "VMware1!"
+$VIPassword = "CHANGE_ME"
 
 # Full Path to both the Nested ESXi 7.0 VA, Extracted VCSA 7.0 ISO & HA Proxy OVAs
-$NestedESXiApplianceOVA = "C:\Users\tanzu\Desktop\tanzu\Nested_ESXi7.0u1_Appliance_Template_v1.ova"
-$VCSAInstallerPath = "C:\Users\tanzu\Desktop\tanzu\VMware-VCSA-all-7.0.1-15952498"
-$HAProxyOVA = "C:\Users\tanzu\Desktop\tanzu\vmware-haproxy-v0.1.8.ova"
+$NestedESXiApplianceOVA = "/Users/jeffbutler/NestedVCF/Nested_ESXi7.0u2_Appliance_Template_v1.ova"
+$VCSAInstallerPath = "/Users/jeffbutler/NestedVCF/VMware-VCSA-all-7.0.2-17694817"
+$HAProxyOVA = "/Users/jeffbutler/NestedVCF/haproxy-v0.1.10.ova"
 
 # TKG Content Library URL
 $TKGContentLibraryName = "TKG-Content-Library"
@@ -17,22 +17,22 @@ $TKGContentLibraryURL = "https://wp-content.vmware.com/v2/latest/lib.json"
 
 # Nested ESXi VMs to deploy
 $NestedESXiHostnameToIPs = @{
-    "tanzu-esxi-1" = "172.17.31.113"
-    "tanzu-esxi-2" = "172.17.31.114"
-    "tanzu-esxi-3" = "172.17.31.115"
+    "tanzu-basic-esxi-1" = "192.168.136.113"
+    "tanzu-basic-esxi-2" = "192.168.136.114"
+    "tanzu-basic-esxi-3" = "192.168.136.115"
 }
 
 # Nested ESXi VM Resources
-$NestedESXivCPU = "4"
-$NestedESXivMEM = "24" #GB
-$NestedESXiCachingvDisk = "8" #GB
-$NestedESXiCapacityvDisk = "100" #GB
+$NestedESXivCPU = "8"
+$NestedESXivMEM = "64" #GB
+$NestedESXiCachingvDisk = "32" #GB
+$NestedESXiCapacityvDisk = "400" #GB
 
 # VCSA Deployment Configuration
-$VCSADeploymentSize = "tiny"
-$VCSADisplayName = "tanzu-vcsa-1"
-$VCSAIPAddress = "172.17.31.112"
-$VCSAHostname = "tanzu-vcsa-1.cpbu.corp" #Change to IP if you don't have valid DNS
+$VCSADeploymentSize = "small"
+$VCSADisplayName = "tanzu-basic-vcsa"
+$VCSAIPAddress = "192.168.136.112"
+$VCSAHostname = "vcsa.tanzubasic.tanzuathome.net" #Change to IP if you don't have valid DNS
 $VCSAPrefix = "24"
 $VCSASSODomainName = "vsphere.local"
 $VCSASSOPassword = "VMware1!"
@@ -40,31 +40,31 @@ $VCSARootPassword = "VMware1!"
 $VCSASSHEnable = "true"
 
 # HA Proxy Configuration
-$HAProxyDisplayName = "tanzu-haproxy-1"
-$HAProxyManagementIPAddress = "172.17.31.116/24" # Format is IP Address/CIDR Prefix
-$HAProxyHostname = "tanzu-haproxy-1.cpbu.corp"
+$HAProxyDisplayName = "tanzu-basic-haproxy"
+$HAProxyManagementIPAddress = "192.168.136.116/24" # Format is IP Address/CIDR Prefix
+$HAProxyHostname = "haproxy.tanzubasic.tanzuathome.net"
 $HAProxyPort = "5556"
-$HAProxyWorkloadIPAddress = "172.17.36.128/24" # Format is IP Address/CIDR Prefix
-$HAProxyWorkloadGateway = "172.17.36.1"
-$HAProxyWorkloadNetworkIPRange = "172.17.36.0/25" # Format is Network CIDR Notation
-$HAProxyWorkloadNetwork = "Workload-1736"
+$HAProxyWorkloadIPAddress = "192.168.137.128/24" # Format is IP Address/CIDR Prefix
+$HAProxyWorkloadGateway = "192.168.137.1"
+$HAProxyWorkloadNetworkIPRange = "192.168.137.64/26" # Format is Network CIDR Notation
+$HAProxyWorkloadNetwork = "vm-network-137"
 $HAProxyOSPassword = "VMware1!"
 $HAProxyUsername = "wcp"
 $HAProxyPassword = "VMware1!"
 
 # General Deployment Configuration for Nested ESXi, VCSA & HA Proxy VM
-$VMDatacenter = "San Jose"
-$VMCluster = "Cluster-02"
-$VMNetwork = "Management-1731"
-$VMDatastore = "vsanDatastore (1)"
+$VMDatacenter = "Datacenter"
+$VMCluster = "LabCluster"
+$VMNetwork = "vm-network-136"
+$VMDatastore = "VMStorage"
 $VMNetmask = "255.255.255.0"
-$VMGateway = "172.17.31.1"
-$VMDNS = "172.17.31.5"
-$VMNTP = "172.17.31.5"
+$VMGateway = "192.168.136.1"
+$VMDNS = "192.168.128.1"
+$VMNTP = "pool.ntp.org"
 $VMPassword = "VMware1!"
-$VMDomain = "cpbu.corp"
-$VMSyslog = "172.17.31.80"
-$VMFolder = "Tanzu"
+$VMDomain = "tanzubasic.tanzuathome.net"
+$VMSyslog = "ns.tanzuathome.net"
+$VMFolder = "Tanzu-Basic"
 # Applicable to Nested ESXi only
 $VMSSH = "true"
 $VMVMFS = "false"
